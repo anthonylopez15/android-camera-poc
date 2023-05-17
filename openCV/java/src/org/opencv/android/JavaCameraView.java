@@ -213,6 +213,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
 
                     /* Finally we are ready to start the preview */
                     Log.d(TAG, "startPreview");
+                    setDisplayOrientation();
                     mCamera.startPreview();
                 }
                 else
@@ -225,6 +226,8 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
 
         return result;
     }
+
+    protected void setDisplayOrientation(Camera camera, int angle)
 
     protected void releaseCamera() {
         synchronized (this) {

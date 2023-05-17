@@ -24,6 +24,9 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import java.util.Collections;
+import java.util.List;
+
 public class MainActivity2 extends CameraActivity implements OnTouchListener, CvCameraViewListener2 {
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -57,9 +60,10 @@ public class MainActivity2 extends CameraActivity implements OnTouchListener, Cv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        setContentView(R.layout.activity_main2);
 
         touch_coordinates = (TextView) findViewById(R.id.touch_coordinates);
         touch_color = (TextView) findViewById(R.id.touch_color);
@@ -80,10 +84,15 @@ public class MainActivity2 extends CameraActivity implements OnTouchListener, Cv
     public void onResume() {
         super.onResume();
         if (!OpenCVLoader.initDebug()) {
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, this, mLoaderCallback);
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, this, mLoaderCallback);
         } else {
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
+    }
+
+    @Override
+    protected List<? extends CameraBridgeViewBase> getCameraViewList() {
+        return Collections.singletonList(mOpenCvCameraView);
     }
 
     @Override
